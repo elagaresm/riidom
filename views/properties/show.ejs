@@ -20,19 +20,22 @@
             </h1>
         </div>
         <div>
-            <p><strong>Price: $</strong><%= property.price %></p>
-            <p><strong>Location: </strong><%= property.location %></p>
+            <p><strong>Price: $</strong>
+                <%= property.price %>
+            </p>
+            <p><strong>Location: </strong>
+                <%= property.location %>
+            </p>
         </div>
 
-        <div>
-            <a href="/properties">Go back</a>
-        </div>
-        <div>
-            <a href="/properties/<%= property._id %>/edit">Edit</a>
-        </div>
         <form action="/properties/<%= property._id %>?_method=DELETE" method="POST">
             <button>Delete</button>
         </form>
+
+        <footer>
+            <a href="/properties">Go back</a>
+            <a href="/properties/<%= property._id %>/edit">Edit</a>
+        </footer>
     </div>
 </body>
 

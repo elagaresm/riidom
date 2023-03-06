@@ -3,6 +3,7 @@ const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
 const Property = require('../models/property');
 
+// macOS
 mongoose.connect('mongodb://localhost:27017/riidom');
 
 const db = mongoose.connection;

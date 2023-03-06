@@ -9,15 +9,15 @@ const Property = require('./models/property')
 // mongoose.set('strictQuery', false)
 // windows setup
 
-// mongoose.connect('mongodb://10.0.0.5:27017/riidom')
-// const db = mongoose.connection
-// db.on('error', console.error.bind(console, 'connection error: '))
-// db.once('open', () => {
-//     console.log('Database connected')
-// })
+mongoose.connect('mongodb://10.0.0.5:27017/riidom')
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error: '))
+db.once('open', () => {
+    console.log('Database connected')
+})
 
 //macos
-mongoose.connect('mongodb://localhost:27017/riidom');
+// mongoose.connect('mongodb://localhost:27017/riidom');
 
 
 app.set('view engine', 'ejs')
