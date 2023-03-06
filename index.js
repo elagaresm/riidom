@@ -7,12 +7,17 @@ const Property = require('./models/property')
 
 
 // mongoose.set('strictQuery', false)
-mongoose.connect('mongodb://10.0.0.5:27017/riidom')
-const db = mongoose.connection
-db.on('error', console.error.bind(console, 'connection error: '))
-db.once('open', () => {
-    console.log('Database connected')
-})
+// windows setup
+
+// mongoose.connect('mongodb://10.0.0.5:27017/riidom')
+// const db = mongoose.connection
+// db.on('error', console.error.bind(console, 'connection error: '))
+// db.once('open', () => {
+//     console.log('Database connected')
+// })
+
+//macos
+mongoose.connect('mongodb://localhost:27017/riidom');
 
 
 app.set('view engine', 'ejs')
@@ -59,8 +64,18 @@ app.get('/properties/:id/edit', async (req, res) => {
 
 
 app.patch('/properties/:id', async (req, res) => {
-    const property = await Property.findById(req.params.id)
+    const { id } = req.params
+    const property = await Property.findByIdAndUpdate(id, req.body.property);
+    console.log('UPDATED', property)
+    res.redirect(`/properties/${id}`)
+})
 
+
+app.delete('/properties/:id', async (req, res) => {
+    const { id } = req.params
+    const property = await Property.findByIdAndDelete(id)
+    console.log('DELETED', property)
+    res.redirect('/properties')
 })
 
 

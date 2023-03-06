@@ -3,7 +3,7 @@ const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
 const Property = require('../models/property');
 
-mongoose.connect('mongodb://10.0.0.5:27017/riidom')
+mongoose.connect('mongodb://localhost:27017/riidom');
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));

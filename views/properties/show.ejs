@@ -30,6 +30,9 @@
         <div>
             <a href="/properties/<%= property._id %>/edit">Edit</a>
         </div>
+        <form action="/properties/<%= property._id %>?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
     </div>
 </body>
 
