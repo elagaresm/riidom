@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Properties</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>All Properties</h1>
+    <ul>
+        <% for (let property of properties) {%>
+            <li><a href="/properties/<%= property._id %>">
+                    <%= property.title %>
+                </a></li>
+            <% } %>
+    </ul>
+</body>
+
+</html>

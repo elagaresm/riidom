@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Show page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div>
+        <div>
+            <h1>
+                <div>
+                    <%= property.title %>
+                </div>
+                <div>
+                    <img src="<%= property.image %>">
+                </div>
+            </h1>
+        </div>
+        <div>
+            <p><strong>Price: $</strong><%= property.price %></p>
+            <p><strong>Location: </strong><%= property.location %></p>
+        </div>
+
+        <div>
+            <a href="/properties">Go back</a>
+        </div>
+        <div>
+            <a href="/properties/<%= property._id %>/edit">Edit</a>
+        </div>
+    </div>
+</body>
+
+</html>

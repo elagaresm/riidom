@@ -10,6 +10,9 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
     console.log("Database connected");
 });
+db.once('close', () => {
+    console.log("Database closed")
+});
 
 const sample = array => array[Math.floor(Math.random() * array.length)];
 
