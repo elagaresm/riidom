@@ -4,7 +4,7 @@ const path = require('path')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 const Property = require('./models/property')
-
+const ExpressError = require('./utils/ExpressError')
 
 // mongoose.set('strictQuery', false)
 // windows setup
@@ -44,7 +44,7 @@ app.get('/properties/new', async (req, res) => {
 })
 
 
-app.post('/properties/', async (req, res) => {
+app.post('/properties/', async (req, res, next) => {
     const property = new Property(req.body.property)
     await property.save()
     res.redirect(`properties/${property._id}`)
@@ -65,7 +65,7 @@ app.get('/properties/:id/edit', async (req, res) => {
 
 app.patch('/properties/:id', async (req, res) => {
     const { id } = req.params
-    const property = await Property.findByIdAndUpdate(id, req.body.property);
+    const property = await Property.findByIdAndUpdate(id, { ...req.body.property });
     console.log('UPDATED', property)
     res.redirect(`/properties/${id}`)
 })
@@ -76,6 +76,21 @@ app.delete('/properties/:id', async (req, res) => {
     const property = await Property.findByIdAndDelete(id)
     console.log('DELETED', property)
     res.redirect('/properties')
+})
+
+
+// not found url
+app.use((req, res, next) => {
+    next(new ExpressError('Page Not Found', 404))
+})
+
+
+app.use((err, req, res, next) => {
+    const { statusCode = 500, stack, message } = err
+    console.log(Object.getOwnPropertyNames(err))
+    if (!message) message = 'Oh no! Something went wrong!'
+    res.status(statusCode).send(message)
+    console.log('this is the stack: ', stack)
 })
 
 
