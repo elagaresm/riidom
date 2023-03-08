@@ -7,17 +7,27 @@ const Property = require('./models/property')
 const ExpressError = require('./utils/ExpressError')
 
 // mongoose.set('strictQuery', false)
-// windows setup
 
-mongoose.connect('mongodb://10.0.0.5:27017/riidom')
+// windows setup
+// mongoose.connect('mongodb://10.0.0.5:27017/riidom')
+
+//macos setup
+mongoose.connect('mongodb://localhost:27017/riidom');
+
+
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error: '))
 db.once('open', () => {
     console.log('Database connected')
 })
 
-//macos
-// mongoose.connect('mongodb://localhost:27017/riidom');
+function isLoggedIn (req, res, next) {
+    console.log(req.query)
+    if (req.query.username !== 'konfle') {
+        throw new ExpressError('Log in as Konfle to see this webpage', 301)
+    }
+    next()
+}
 
 
 app.set('view engine', 'ejs')
@@ -36,6 +46,11 @@ app.get('/', (req, res) => {
 app.get('/properties', async (req, res) => {
     const properties = await Property.find({})
     res.render('properties/index', { properties })
+})
+
+
+app.get('/dog', isLoggedIn, (req, res) => {
+    res.send('woof woof')
 })
 
 
@@ -87,13 +102,11 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
     const { statusCode = 500, stack, message } = err
-    console.log(Object.getOwnPropertyNames(err))
     if (!message) message = 'Oh no! Something went wrong!'
     res.status(statusCode).send(message)
-    console.log('this is the stack: ', stack)
 })
 
 
 app.listen(3000, () => {
-    console.log('Serving on port 300')
+    console.log('Serving on port 3000')
 })
